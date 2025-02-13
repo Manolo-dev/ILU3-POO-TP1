@@ -2,9 +2,9 @@ package cartes;
 
 public enum Type {
     FEU("FeuRouge", "FeuVert", "VehiculePrioritaire"),
-    ESSENCE("PanneEssence", "Essence", "Citerne"),
-    CREVAISON("PanneCrevaison", "Crevaison", "RoueDeSecours"),
-    ACCIDENT("Accident", "Reparation", "Asurance");
+    ESSENCE("PanneEssence", "BidonEssence", "CiterneDEssence"),
+    CREVAISON("Crevaison", "RoueDeSecours", "Increvable"),
+    ACCIDENT("Accident", "Reparation", "AsDuVolant");
 
     private final String nomAttaque;
     private final String nomParade;

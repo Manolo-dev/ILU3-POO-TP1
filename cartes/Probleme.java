@@ -15,5 +15,4 @@ public abstract class Probleme extends Carte {
 	public String toString() {
 		return getType().getNom(this);
 	}
-
 }
