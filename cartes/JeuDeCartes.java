@@ -25,11 +25,11 @@ public class JeuDeCartes {
     public String affichageJeuDeCartes() {
         StringBuilder sb = new StringBuilder();
 
-        for(Configuration config : configuration) {
-            sb.append(config.getNbExemplaires());
-            sb.append(" ");
-            sb.append(config.getCarte());
-        }
+        for(Configuration config : configuration)
+            sb  .append(config.getNbExemplaires())
+                .append("\t")
+                .append(config.getCarte())
+                .append("\n");
 
         return sb.toString();
     }
