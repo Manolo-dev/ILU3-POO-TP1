@@ -7,7 +7,9 @@ On notera la typo de nos professeurs, et oui, "Mille" est invariable, il ne pren
 ## Info étudiant
 
 **Prénom NOM** : Manolo SARDÓ
+
 **Num étu**    : 22205413
+
 **Groupe**     : B12
 
 ## Notes de projet
