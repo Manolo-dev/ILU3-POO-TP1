@@ -33,3 +33,7 @@ On notera la typo de nos professeurs, et oui, "Mille" est invariable, il ne pren
 - **Point d'intéret** : La définition de la méthode `equals` avec `instanceof` et `getClass`. L'héritage est vraiment pertinent ici, et c'est très utile de savoir minimiser la redondance de code.
 
 - **Incompréhension** : On nous demande de coder une fonction `checkCount` qui vérifie que le retour de `donnerCartes` correspond à une certaine configuration. Or, `donnerCartes` est DÉFINIE selon cette même configuration. Donc `checkCount` ne sert à rien, ou plutôt ne fait que tester si Java fonctionne correctement...
+
+- **Point d'inintérêt** : La seconde version de la méthode `extraire` : Oui, effectivement, nous avons vu les itérateurs, mais ici, ça n'apporte rien, c'est une perte totale de temps et d'efforts.
+
+- **Point d'énervement** : La convention de nommage... Nous devons coder des fonctions, une fois en français, une fois en anglais, sans qu'il n'y ai de logique ou de cohérence. Déjà que Java est particulièrment verbeux et difficile à lire, si en plus on doit changer de langue à chaque ligne...
