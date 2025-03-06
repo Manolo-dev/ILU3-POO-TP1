@@ -15,4 +15,13 @@ public abstract class Probleme extends Carte {
 	public String toString() {
 		return getType().getNom(this);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Probleme) {
+			Probleme p = (Probleme) obj;
+			return getType().equals(p.getType());
+		}
+		return false;
+	}
 }
