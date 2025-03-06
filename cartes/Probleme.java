@@ -18,7 +18,7 @@ public abstract class Probleme extends Carte {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof Probleme) {
+		if(obj instanceof Probleme && getClass().equals(obj.getClass())) {
 			Probleme p = (Probleme) obj;
 			return getType().equals(p.getType());
 		}
