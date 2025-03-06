@@ -1,5 +1,8 @@
 package cartes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class JeuDeCartes {
     Configuration typesDeCartes[] = {
         new Configuration(new DebutLimite(), 4),
@@ -49,7 +52,20 @@ public class JeuDeCartes {
                 cartes[index++] = config.getCarte();
     
         return cartes;
-    }    
+    }
+
+    public boolean checkCount() {
+        Map<Carte, Integer> count = new HashMap<>();
+
+        for(Carte carte : donnerCartes())
+            count.put(carte, count.getOrDefault(carte, 0) + 1);
+        
+        for(Configuration config : typesDeCartes)
+            if(count.get(config.getCarte()) != config.getNbExemplaires())
+                return false;
+        
+        return true;
+    }
 
     private static class Configuration {
         private Integer nbExemplaires;
