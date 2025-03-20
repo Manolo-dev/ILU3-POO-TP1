@@ -9,7 +9,7 @@ import cartes.Carte;
 import utils.GestionCartes;
 
 public class Jeu {
-    Sabot sabot;
+    private Sabot sabot;
 
     Jeu() {
         Random rand = new Random();
