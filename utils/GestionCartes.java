@@ -4,11 +4,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
-
-import cartes.Carte;
 
 public class GestionCartes {
     public static <T> T extraire(List<T> liste, Random rand) {
@@ -78,6 +75,7 @@ public class GestionCartes {
                         return false;
                 }
             }
+            it.next();
         }
 
         return true;

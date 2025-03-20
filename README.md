@@ -37,3 +37,5 @@ On notera la typo de nos professeurs, et oui, "Mille" est invariable, il ne pren
 - **Point d'inintérêt** : La seconde version de la méthode `extraire` : Oui, effectivement, nous avons vu les itérateurs, mais ici, ça n'apporte rien, c'est une perte totale de temps et d'efforts.
 
 - **Point d'énervement** : La convention de nommage... Nous devons coder des fonctions, une fois en français, une fois en anglais, sans qu'il n'y ai de logique ou de cohérence. Déjà que Java est particulièrment verbeux et difficile à lire, si en plus on doit changer de langue à chaque ligne...
+
+- **Difficulté** : L'exercice 3.3 du TP2 est incompréhensible.
