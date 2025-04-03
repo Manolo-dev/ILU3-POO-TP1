@@ -10,6 +10,8 @@ import utils.GestionCartes;
 
 public class Jeu {
     private Sabot sabot;
+    private List<Joueur> joueurs = new ArrayList<>();
+    private static final int NBCARTES = 6;
 
     Jeu() {
         Random rand = new Random();
@@ -21,5 +23,23 @@ public class Jeu {
         List<Carte> listeMelangee = GestionCartes.melanger(liste, rand);
 
         sabot = new Sabot(listeMelangee.toArray(new Carte[0]));
+    }
+
+    public void inscrire(List<Joueur> listeJoueurs) throws RuntimeException {
+        for(Joueur joueur : listeJoueurs) {
+            if(!joueurs.contains(joueur)) {
+                if(joueurs.size() >= 5)
+                    throw new RuntimeException("Le nombre de joueurs est limité à 4");
+                joueurs.add(joueur);
+            }
+        }
+    }
+
+    public void distribuerCartes() {
+        for(Joueur joueur : joueurs) {
+            for(int i = 0; i < NBCARTES; i++) {
+                joueur.donner(sabot.piocher());
+            }
+        }
     }
 }

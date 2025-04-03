@@ -1,9 +1,8 @@
 package jeu;
 
-import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-
+import java.util.Random;
 import cartes.Carte;
 
 public class Joueur {
@@ -52,6 +51,24 @@ public class Joueur {
             coupsDefausse.add(new Coup(this, carte, null));
     
         return coupsDefausse;
+    }
+
+    public Carte retirerDeLaMain(Carte carte) {
+        mainJoueur.jouer(carte);
+
+        return carte;
+    }
+
+    public Coup choisirCoup(Set<Joueur> participants) {
+        HashSet<Coup> coupsPossibles = coupsPossibles(participants);
+
+        if(coupsPossibles.isEmpty())
+            coupsPossibles = coupsDefausse();
+
+        Random random = new Random();
+        int index = random.nextInt(coupsPossibles.size());
+
+        return (Coup) coupsPossibles.toArray()[index];
     }
 
     @Override
