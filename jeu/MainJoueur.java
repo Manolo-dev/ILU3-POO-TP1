@@ -22,6 +22,21 @@ public class MainJoueur implements Iterable<Carte> {
         main.remove(c);
     }
 
+    public String getList() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Main : [");
+        for(Carte c : main) {
+            sb.append(c.toString());
+            sb.append(", ");
+        }
+        if(!main.isEmpty())
+            sb.delete(sb.length() - 2, sb.length());
+        sb.append("]; ");
+
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -7,8 +7,12 @@ import cartes.Carte;
 
 public class Joueur {
     private String name;
-    private ZoneDeJeu zoneDeJeu;
-    private MainJoueur mainJoueur;
+    private ZoneDeJeu zoneDeJeu = new ZoneDeJeu();
+    private MainJoueur mainJoueur = new MainJoueur();
+
+    public Joueur(String name) {
+        this.name = name;
+    }
 
     public void donner(Carte c) {
         mainJoueur.prendre(c);
@@ -69,6 +73,20 @@ public class Joueur {
         int index = random.nextInt(coupsPossibles.size());
 
         return (Coup) coupsPossibles.toArray()[index];
+    }
+
+    public String afficherEtatJoueur() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Il a : ");
+        sb.append(zoneDeJeu.toString());
+        sb.append(mainJoueur.getList());
+
+        return sb.toString();
+    }
+
+    public int getKmParcourus() {
+        return zoneDeJeu.donnerKmParcourus();
     }
 
     @Override

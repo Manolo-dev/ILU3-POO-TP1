@@ -49,4 +49,21 @@ public class Coup {
         hash = 31 * hash + (cible != null ? cible.hashCode() : 0);
         return hash;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        if(cible == null) {
+            sb.append("défausse la carte ");
+            sb.append(carte.toString());
+        } else {
+            sb.append("dépose la carte ");
+            sb.append(carte.toString());
+            sb.append(" dans la zone de jeu de ");
+            sb.append(cible.toString());
+        }
+
+        return sb.toString();
+    }
 }
