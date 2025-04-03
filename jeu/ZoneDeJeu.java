@@ -3,6 +3,8 @@ package jeu;
 import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import cartes.*;
 
@@ -10,13 +12,23 @@ import cartes.*;
 public class ZoneDeJeu {
     private List<Limite> limitations = new ArrayList<Limite>();
     private List<Bataille> batailles = new ArrayList<Bataille>();
+    private Set<Botte>        bottes = new HashSet<Botte>();
     private Collection<Borne> bornes = new ArrayList<Borne>();
+
+    private boolean estPrioritaire() {
+        Botte prioritaire_degenerate = new Botte(Type.FEU);
+
+        return bottes.contains(prioritaire_degenerate);
+    }
 
     public int donnerLimitationVitesse() {
         if(limitations.isEmpty())
             return 200;
         
         if(limitations.get(limitations.size() - 1) instanceof FinLimite)
+            return 200;
+        
+        if(estPrioritaire())
             return 200;
 
         return 50;
@@ -48,17 +60,37 @@ public class ZoneDeJeu {
             return 0;
         }
 
+        if(c instanceof Botte) {
+            bottes.add((Botte) c);
+            return 0;
+        }
+
         return -1;
     }
 
     public boolean peutAvancer() {
         if(batailles.isEmpty())
-            return false;
+            return estPrioritaire();
         
         Bataille carte = batailles.get(batailles.size() - 1);
+    
+        if(carte instanceof Attaque) {
+            Attaque attaque = (Attaque) carte;
+
+            if(attaque.getType() == Type.FEU)
+                return estPrioritaire();
+            
+            Type type = attaque.getType();
+
+            if(bottes.contains(new Botte(type)))
+                return true;
+        }
         
         if(!(carte instanceof Parade))
             return false;
+        
+        if(estPrioritaire())
+            return true;
         
         Parade parade = (Parade) carte;
 
@@ -69,13 +101,23 @@ public class ZoneDeJeu {
     }
 
     private boolean estDepotFeuVertAutorise() {
+        if(estPrioritaire())
+            return false;
+
         if(batailles.isEmpty())
             return true;
         
         Bataille carte = batailles.get(batailles.size() - 1);
 
-        if(carte instanceof Attaque && ((Attaque) carte).getType() == Type.FEU)
-            return true;
+        if(carte instanceof Attaque) {
+            Attaque attaque = (Attaque)carte;
+
+            if(attaque.getType() == Type.FEU)
+                return true;
+            
+            if(bottes.contains(new Botte(attaque.getType())))
+                return true;
+        }
         
         if(carte instanceof Parade && ((Parade) carte).getType() != Type.FEU)
             return true;
@@ -99,6 +141,9 @@ public class ZoneDeJeu {
     }
     
     private boolean estDepotLimiteAutorise(Limite limite) {
+        if(estPrioritaire())
+            return false;
+
         if(limite instanceof DebutLimite) {
             if(limitations.isEmpty())
                 return true;
@@ -119,6 +164,11 @@ public class ZoneDeJeu {
     }
 
     private boolean estDepotBatailleAutorise(Bataille bataille) {
+        Type type = bataille.getType();
+
+        if(bottes.contains(new Botte(type)))
+            return false;
+
         if(bataille instanceof Attaque) {
             return peutAvancer();
         } else {
@@ -151,6 +201,9 @@ public class ZoneDeJeu {
         
         if(c instanceof Bataille)
             return estDepotBatailleAutorise((Bataille) c);
+        
+        if(c instanceof Botte)
+            return true;
         
         return false;
     }
