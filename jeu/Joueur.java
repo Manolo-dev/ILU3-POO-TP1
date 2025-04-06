@@ -85,6 +85,10 @@ public class Joueur {
         return sb.toString();
     }
 
+    public int deposer(Carte c) {
+        return zoneDeJeu.deposer(c);
+    }
+
     public int getKmParcourus() {
         return zoneDeJeu.donnerKmParcourus();
     }

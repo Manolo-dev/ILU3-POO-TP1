@@ -72,7 +72,8 @@ public class Jeu {
             sabot.ajouterCarte(coup.getCarte());
         } else {
             joueur.retirerDeLaMain(coup.getCarte());
-            coup.getCible().donner(coup.getCarte());
+            if(coup.getCible().deposer(coup.getCarte()) == -1)
+                sabot.ajouterCarte(coup.getCarte());
         }
 
         return sb.toString();
