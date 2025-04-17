@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import cartes.JeuDeCartes;
 import cartes.Carte;
@@ -52,20 +54,20 @@ public class Jeu {
         Carte cartePiochee = joueur.prendreCarte(sabot);
         HashSet<Joueur> participants = new HashSet<>(joueurs);
         
-        sb.append(joueur.toString());
-        sb.append(" a pioché la carte ");
-        sb.append(cartePiochee.toString());
-        sb.append("\n");
+        sb.append(joueur.toString())
+          .append(" a pioché la carte ")
+          .append(cartePiochee.toString())
+          .append("\n");
 
-        sb.append(joueur.afficherEtatJoueur());
-        sb.append("\n");
+        sb.append(joueur.afficherEtatJoueur())
+          .append("\n");
         
         Coup coup = joueur.choisirCoup(participants);
 
-        sb.append(joueur.toString());
-        sb.append(" ");
-        sb.append(coup.toString());
-        sb.append("\n");
+        sb.append(joueur.toString())
+          .append(" ")
+          .append(coup.toString())
+          .append("\n");
 
         if(coup.getCible() == null) {
             joueur.retirerDeLaMain(coup.getCarte());
@@ -101,15 +103,38 @@ public class Jeu {
 
             for(Joueur joueur : joueurs) {
                 if(joueur.getKmParcourus() >= 1000) {
-                    sb.append("Le joueur ");
-                    sb.append(joueur.toString());
-                    sb.append(" a gagné !");
+                    sb.append("Le joueur ")
+                      .append(joueur.toString())
+                      .append(" a gagné !");
                     return sb.toString();
                 }
             }
         }
 
-        sb.append("Les joueurs sont trop lents, le sabot est vide !");
+        sb.append("Les joueurs sont trop lents, le sabot est vide !\n")
+          .append("Le classement est :\n");
+
+        List<Joueur> classement = classement();
+
+        for(Joueur joueur : classement)
+            sb.append(joueur.toString())
+              .append(" : ")
+              .append(joueur.getKmParcourus())
+              .append("\n");
+
         return sb.toString();
+    }
+
+    public List<Joueur> classement() {
+        TreeSet<Joueur> classement = new TreeSet<>(new Comparator<Joueur>() {
+            @Override
+            public int compare(Joueur j1, Joueur j2) {
+                return Integer.compare(j2.getKmParcourus(), j1.getKmParcourus());
+            }
+        });
+
+        classement.addAll(joueurs);
+        List<Joueur> listeClassement = new ArrayList<>(classement);
+        return listeClassement;
     }
 }

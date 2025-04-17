@@ -4,36 +4,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JeuDeCartes {
-    Configuration typesDeCartes[] = {
-        new Configuration(new DebutLimite(), 4),
-        new Configuration(new FinLimite(), 6),
-        new Configuration(new Botte(Type.FEU      ), 1),
-        new Configuration(new Botte(Type.ACCIDENT ), 1),
-        new Configuration(new Botte(Type.CREVAISON), 1),
-        new Configuration(new Botte(Type.ESSENCE  ), 1),
-        new Configuration(new Attaque(Type.FEU      ), 5),
-        new Configuration(new Attaque(Type.ACCIDENT ), 3),
-        new Configuration(new Attaque(Type.CREVAISON), 3),
-        new Configuration(new Attaque(Type.ESSENCE  ), 3),
-        new Configuration(new Parade(Type.FEU      ), 14),
-        new Configuration(new Parade(Type.ACCIDENT ), 6),
-        new Configuration(new Parade(Type.CREVAISON), 6),
-        new Configuration(new Parade(Type.ESSENCE  ), 6),
-        new Configuration(new Borne(200), 4),
-        new Configuration(new Borne(100), 12),
-        new Configuration(new Borne(75), 10),
-        new Configuration(new Borne(50), 10),
-        new Configuration(new Borne(25), 10),
-    };
+    private Map<Carte, Integer> typesDeCartes = new HashMap<>();
+    public JeuDeCartes() {        
+        typesDeCartes.put(new DebutLimite(), 4);
+        typesDeCartes.put(new FinLimite(), 6);
+        typesDeCartes.put(new Botte(Type.FEU      ), 1);
+        typesDeCartes.put(new Botte(Type.ACCIDENT ), 1);
+        typesDeCartes.put(new Botte(Type.CREVAISON), 1);
+        typesDeCartes.put(new Botte(Type.ESSENCE  ), 1);
+        typesDeCartes.put(new Attaque(Type.FEU      ), 5);
+        typesDeCartes.put(new Attaque(Type.ACCIDENT ), 3);
+        typesDeCartes.put(new Attaque(Type.CREVAISON), 3);
+        typesDeCartes.put(new Attaque(Type.ESSENCE  ), 3);
+        typesDeCartes.put(new Parade(Type.FEU      ), 14);
+        typesDeCartes.put(new Parade(Type.ACCIDENT ), 6);
+        typesDeCartes.put(new Parade(Type.CREVAISON), 6);
+        typesDeCartes.put(new Parade(Type.ESSENCE  ), 6);
+        typesDeCartes.put(new Borne(200), 4);
+        typesDeCartes.put(new Borne(100), 12);
+        typesDeCartes.put(new Borne(75), 10);
+        typesDeCartes.put(new Borne(50), 10);
+        typesDeCartes.put(new Borne(25), 10);
+    }
 
     public String affichageJeuDeCartes() {
         StringBuilder sb = new StringBuilder();
 
-        for(Configuration config : typesDeCartes)
-            sb  .append(config.getNbExemplaires())
-                .append("\t")
-                .append(config.getCarte())
-                .append("\n");
+        for(Map.Entry<Carte, Integer> config : typesDeCartes.entrySet())
+            sb.append(config.getKey().toString())
+              .append("\t")
+              .append(config.getValue())
+              .append("\n");
 
         return sb.toString();
     }
@@ -41,15 +42,15 @@ public class JeuDeCartes {
     public Carte[] donnerCartes() {
         int total = 0;
         
-        for(Configuration config : typesDeCartes)
-            total += config.getNbExemplaires();
+        for(Map.Entry<Carte, Integer> config : typesDeCartes.entrySet())
+            total += config.getValue();
     
         Carte[] cartes = new Carte[total];
         int index = 0;
     
-        for(Configuration config : typesDeCartes)
-            for(int i = 0; i < config.getNbExemplaires(); i++)
-                cartes[index++] = config.getCarte();
+        for(Map.Entry<Carte, Integer> config : typesDeCartes.entrySet())
+            for(int i = 0; i < config.getValue(); i++)
+                cartes[index++] = config.getKey();
     
         return cartes;
     }
@@ -60,28 +61,10 @@ public class JeuDeCartes {
         for(Carte carte : donnerCartes())
             count.put(carte, count.getOrDefault(carte, 0) + 1);
         
-        for(Configuration config : typesDeCartes)
-            if(count.get(config.getCarte()) != config.getNbExemplaires())
+        for(Map.Entry<Carte, Integer> config : typesDeCartes.entrySet())
+            if(count.get(config.getKey()) != config.getValue())
                 return false;
         
         return true;
-    }
-
-    private static class Configuration {
-        private Integer nbExemplaires;
-        private Carte carte;
-    
-        private Configuration(Carte carte, Integer nbExemplaires) {
-            this.nbExemplaires = nbExemplaires;
-            this.carte = carte;
-        }
-
-        public Carte getCarte() {
-            return carte;
-        }
-
-        public Integer getNbExemplaires() {
-            return nbExemplaires;
-        }
     }
 }
