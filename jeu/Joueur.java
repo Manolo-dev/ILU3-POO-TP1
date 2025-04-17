@@ -2,8 +2,7 @@ package jeu;
 
 import java.util.Set;
 import java.util.HashSet;
-import java.util.Random;
-import cartes.Carte;
+import cartes.*;
 import strategies.Strategie;
 
 public class Joueur {
@@ -12,9 +11,13 @@ public class Joueur {
     private MainJoueur mainJoueur = new MainJoueur();
     private Strategie strategie;
 
-    public Joueur(String name) {
+    public Joueur(String name, Strategie strategie) {
         this.name = name;
-        strategie = new Strategie() {};
+        this.strategie = strategie;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setStrategie(Strategie strategie) {
@@ -82,11 +85,15 @@ public class Joueur {
     public String afficherEtatJoueur() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Il a : ");
-        sb.append(zoneDeJeu.toString());
-        sb.append(mainJoueur.getList());
+        sb.append("Il a : ")
+          .append(zoneDeJeu.toString())
+          .append(mainJoueur.getList());
 
         return sb.toString();
+    }
+
+    public Bataille donnerSommetPile() {
+        return zoneDeJeu.getSommetPile();
     }
 
     public int deposer(Carte c) {
@@ -95,6 +102,10 @@ public class Joueur {
 
     public int getKmParcourus() {
         return zoneDeJeu.donnerKmParcourus();
+    }
+
+    public Set<Botte> donnerBottes() {
+        return zoneDeJeu.getBottes();
     }
 
     @Override
@@ -108,5 +119,12 @@ public class Joueur {
             return name.equals(((Joueur) obj).name);
 
         return false;
+    }
+
+    public int compareTo(Joueur joueur) {
+        if(getKmParcourus() == joueur.getKmParcourus())
+            return getName().compareTo(joueur.getName());
+        
+        return Integer.compare(getKmParcourus(), joueur.getKmParcourus());
     }
 }

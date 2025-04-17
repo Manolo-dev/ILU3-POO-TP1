@@ -43,3 +43,5 @@ On notera la typo de nos professeurs, et oui, "Mille" est invariable, il ne pren
 - **Point d'agacement** : Il n'est à aucun moment demandé dans le sujet de coder une classe `Cartes` contenant des alias pour les cartes, or, c'est utilisé dans les tests.
 
 - **Incompréhension** : L'exercice 1.5 du TP4 demande que si on a une botte du bon type ET qu'on est prioritaire, alros on ignore l'attaque. Or, dans les règles, seule la botte du bon type est nécessaire.
+
+- **Incompréhension** : La troisième partie du TP 5 nous demande de manipuler des interfaces mais... Ce n'est ni utile, ni pertinent. Les interfaces sont un outil très puissant, mais ici, elles ne servent strictement à rien.

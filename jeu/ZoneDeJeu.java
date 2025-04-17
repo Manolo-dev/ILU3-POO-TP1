@@ -208,6 +208,17 @@ public class ZoneDeJeu {
         return false;
     }
 
+    public Set<Botte> getBottes() {
+        return bottes;
+    }
+
+    public Bataille getSommetPile() {
+        if(batailles.isEmpty())
+            return null;
+            
+        return batailles.get(batailles.size() - 1);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -219,18 +230,20 @@ public class ZoneDeJeu {
         }
         if(!bottes.isEmpty())
             sb.delete(sb.length() - 2, sb.length());
+
         sb.append("]; ");
 
         sb.append("Limite : ");
         if(donnerLimitationVitesse() != 200)
             sb.append(donnerLimitationVitesse());
+
         sb.append("; ");
 
         sb.append("Bataille : ");
         if(batailles.isEmpty())
             sb.append("null");
         else
-            sb.append(batailles.get(batailles.size() - 1).toString());
+            sb.append(getSommetPile().toString());
         sb.append("; ");
 
         return sb.toString();

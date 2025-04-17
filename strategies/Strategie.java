@@ -1,44 +1,49 @@
 package strategies;
 
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import jeu.*;
 
 public interface Strategie {
-    default List<Coup> trierCoups(Set<Coup> coups) {
+    default TreeSet<Coup> trierCoups(Set<Coup> coups) {
         if (coups == null || coups.isEmpty())
             throw new IllegalArgumentException("L'ensemble des coups ne peut pas être vide ou null.");
 
-        List<Coup> listeCoups = new ArrayList<>(coups);
+        TreeSet<Coup> coupsTries = new TreeSet<>(new Comparator<Coup>() {
+            @Override
+            public int compare(Coup c1, Coup c2) {
+                Random random = new Random();
 
-        Random random = new Random();
-        Collections.sort(listeCoups, (c1, c2) -> {
-            if (c1.equals(c2)) {
+                if(c1.compareTo(c2) != 0)
+                    return random.nextBoolean() ? 1 : -1;
+                
                 return 0;
             }
-            return random.nextBoolean() ? -1 : 1;
         });
 
-        return listeCoups;
+        coupsTries.addAll(coups);
+
+        return coupsTries;
     }
 
     default Coup selectionnerCoup(Set<Coup> coups) {
         if (coups == null || coups.isEmpty())
             throw new IllegalArgumentException("L'ensemble des coups ne peut pas être vide ou null.");
 
-        List<Coup> listeCoups = trierCoups(coups);
-        return listeCoups.get(0);
+        TreeSet<Coup> coupsTries = trierCoups(coups);
+        
+        return coupsTries.first();
     }
 
     default Coup selectionnerDefausse(Set<Coup> coups) {
         if (coups == null || coups.isEmpty())
             throw new IllegalArgumentException("L'ensemble des coups ne peut pas être vide ou null.");
 
-        List<Coup> listeCoups = trierCoups(coups);
-        return listeCoups.get(listeCoups.size() - 1);
+        TreeSet<Coup> coupsTries = trierCoups(coups);
+
+        return coupsTries.last();
     }
 }

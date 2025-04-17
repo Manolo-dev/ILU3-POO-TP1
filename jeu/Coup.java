@@ -55,15 +55,33 @@ public class Coup {
         StringBuilder sb = new StringBuilder();
         
         if(cible == null) {
-            sb.append("défausse la carte ");
-            sb.append(carte.toString());
+            sb.append("défausse la carte ")
+              .append(carte.toString());
         } else {
-            sb.append("dépose la carte ");
-            sb.append(carte.toString());
-            sb.append(" dans la zone de jeu de ");
-            sb.append(cible.toString());
+            sb.append("dépose la carte ")
+              .append(carte.toString())
+              .append(" dans la zone de jeu de ")
+              .append(cible.toString());
         }
 
         return sb.toString();
+    }
+
+    public int compareTo(Coup coup) {
+        Joueur cibleDuCoup = coup.getCible();
+
+        if(joueur.equals(this.cible) && joueur.equals(cibleDuCoup))
+            return 0;
+
+        if(this.cible == null && cibleDuCoup == null)
+            return 0;
+
+        if(joueur.equals(this.cible))
+            return 1;
+
+        if(joueur.equals(cibleDuCoup))
+            return -1;
+
+        return this.cible.compareTo(cibleDuCoup);
     }
 }

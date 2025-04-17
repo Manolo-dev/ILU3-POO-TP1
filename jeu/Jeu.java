@@ -134,7 +134,7 @@ public class Jeu {
         });
 
         classement.addAll(joueurs);
-        List<Joueur> listeClassement = new ArrayList<>(classement);
-        return listeClassement;
+
+        return new ArrayList<>(classement);
     }
 }
