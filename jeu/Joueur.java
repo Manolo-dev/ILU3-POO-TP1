@@ -4,14 +4,21 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Random;
 import cartes.Carte;
+import strategies.Strategie;
 
 public class Joueur {
     private String name;
     private ZoneDeJeu zoneDeJeu = new ZoneDeJeu();
     private MainJoueur mainJoueur = new MainJoueur();
+    private Strategie strategie;
 
     public Joueur(String name) {
         this.name = name;
+        strategie = new Strategie() {};
+    }
+
+    public void setStrategie(Strategie strategie) {
+        this.strategie = strategie;
     }
 
     public void donner(Carte c) {
@@ -67,12 +74,9 @@ public class Joueur {
         HashSet<Coup> coupsPossibles = coupsPossibles(participants);
 
         if(coupsPossibles.isEmpty())
-            coupsPossibles = coupsDefausse();
-
-        Random random = new Random();
-        int index = random.nextInt(coupsPossibles.size());
-
-        return (Coup) coupsPossibles.toArray()[index];
+            return strategie.selectionnerDefausse(coupsDefausse());
+        
+        return strategie.selectionnerCoup(coupsPossibles);
     }
 
     public String afficherEtatJoueur() {

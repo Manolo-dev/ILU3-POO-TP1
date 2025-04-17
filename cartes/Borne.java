@@ -24,4 +24,8 @@ public class Borne extends Carte {
 		}
 		return false;
 	}
+
+	public int compareTo(Borne borne) {
+		return km.compareTo(borne.getKm());
+	}
 }

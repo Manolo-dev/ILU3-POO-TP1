@@ -29,4 +29,8 @@ public abstract class Probleme extends Carte {
 	public int hashCode() {
 		return 31 * getClass().hashCode() + type.hashCode();
 	}
+
+	public int compareTo(Probleme autre) {
+		return getType().compareTo(autre.getType());
+	}
 }
